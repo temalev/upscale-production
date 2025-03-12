@@ -1,0 +1,21 @@
+@font-face {
+  font-family: 'YourFontName';
+  src: url('~/public/fonts/moscowsansregular.ttf') format('truetype');
+  /* или для woff2: */
+  /* src: url('~/assets/fonts/your-font-file.woff2') format('woff2'); */
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'YourFontName', sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+}
