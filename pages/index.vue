@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <h1 class="gradient-text">UPSCALE PRODUCTION</h1>
-    <div class="glass-effect">
+     <div class="glass-effect">
       <div class="text-block">
         <p> Благодаря использованию передовых технологий и креативных решений, мы
         создаём уникальные видео, которые не просто впечатляют, но и заставляют
@@ -20,7 +20,7 @@
         class="video-player"
         controls
         type="video/mp4"
-        style="max-width: 700px; min-width: 400px; width: 100%;"
+        style="max-width: 700px; min-width: 300px; width: 100%;"
         loop
       ></video>
     </div>
@@ -53,7 +53,7 @@
 
     <img src="@/assets/img/1.webp" alt="" width="500" class="img-1" />
     <img src="@/assets/img/2.webp" alt="" width="300" class="img-2" />
-    <img src="@/assets/img/3.webp" alt="" width="300" class="img-3" />
+    <img src="@/assets/img/3.webp" alt="" width="300" class="img-3" /> 
   </div>
 </template>
 
@@ -188,6 +188,11 @@ export default {
   left: 50%;
   transform: translate(-50%, -50%);
   border: 2px solid rgba(255, 255, 255, 0.048);
+
+  @media (max-width: 500px) {
+    top: 35%;
+    padding: 40px;
+  }
 }
 .text-block {
   font-size: 14px;
@@ -199,6 +204,7 @@ export default {
   width: 100%;
   & p {
       text-align: left;
+      font-size: 12px;
     }
 }
 .gradient-text {
@@ -211,6 +217,9 @@ export default {
   -webkit-text-fill-color: transparent; /* Прозрачный цвет текста */
   font-size: 60px;
   margin-left: 40px;
+  @media (max-width: 500px) {
+    font-size: 26px;
+  }
 }
 
 .video-cards-block {
@@ -228,6 +237,8 @@ export default {
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(2, 1fr);
     justify-items: center;
+    left: auto;
+    bottom: 50px;
   }
 
   @media (min-width: 1121px) {
