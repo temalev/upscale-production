@@ -69,8 +69,8 @@ export default {
   backdrop-filter: blur(10px);
   padding: 30px;
   border-radius: 40px;
-  max-width: 90%;
-  max-height: 90vh;
+  width: 60%;
+  height: 60vh;
   overflow-y: auto;
   position: relative;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
@@ -100,12 +100,10 @@ h2 {
 }
 
 .modal-image {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 20px;
   margin-top: 20px;
-  width: 60px;
-  height: 40px;
+  width: 100%;
+  height: 200px;
   background-color: #2d2d2d;
   border-radius: 12px;
 }

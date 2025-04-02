@@ -35,7 +35,7 @@
         <h3 class="video-card-title">{{ videoCard.title }}</h3>
         <div class="video-container">
           <div 
-            v-for="(video, i) in videoCard.videos" 
+            v-for="(video, i) in videoCard.preview" 
             :key="i" 
             class="video"
             :style="{ backgroundImage: `url(${video})`, backgroundSize: 'cover' }"
@@ -47,7 +47,7 @@
     <VideoModal
       :is-open="selectedCard !== null"
       :title="selectedCard?.title || ''"
-      :images="selectedCard?.videos || []"
+      :images="selectedCard?.preview || []"
       @close="closeModal"
     />
 
@@ -71,25 +71,29 @@ export default {
           id: 1,
           title: "Имиджевые",
           value: "lifestyle",
-          videos: Array.from({ length: 6 }, (_, i) => `/preview/lifestyle/${i + 1}.jpg`)
+          preview: Array.from({ length: 6 }, (_, i) => `/preview/lifestyle/${i + 1}.jpg`),
+          videos: Array.from({ length: 6 }, (_, i) => `/videos/lifestyle/${i + 1}.mp4`),
         },
         {
           id: 2,
           title: "Рекламный",
           value: "marketing",
-          videos: Array.from({ length: 6 }, (_, i) => `/preview/marketing/${i + 1}.jpg`)
+          preview: Array.from({ length: 6 }, (_, i) => `/preview/marketing/${i + 1}.jpg`),
+          videos: Array.from({ length: 6 }, (_, i) => `/videos/marketing/${i + 1}.mp4`),
         },
         {
           id: 3,
           title: "Ивент",
           value: "event",
-          videos: Array.from({ length: 6 }, (_, i) => `/preview/event/${i + 1}.jpg`)
+          preview: Array.from({ length: 6 }, (_, i) => `/preview/event/${i + 1}.jpg`),
+          videos: Array.from({ length: 6 }, (_, i) => `/videos/event/${i + 1}.mp4`),
         },
         {
           id: 4,
           title: "Анимация",
           value: "animation",
-          videos: Array.from({ length: 6 }, (_, i) => `/preview/animation/${i + 1}.jpg`)
+          preview: Array.from({ length: 6 }, (_, i) => `/preview/animation/${i + 1}.jpg`),
+          videos: Array.from({ length: 6 }, (_, i) => `/videos/animation/${i + 1}.mp4`),
         },
       ],
       selectedCard: null,
