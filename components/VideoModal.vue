@@ -4,12 +4,12 @@
       <button class="close-button" @click="closeModal">&times;</button>
       <h2>{{ title }}</h2>
       <div class="modal-videos">
-        <div
-          v-for="(image, i) in images"
-          :key="i"
-          class="modal-image"
-          :style="{ backgroundImage: `url(${image})`, backgroundSize: 'cover' }"
-        ></div>
+        <video v-for="(image, i) in images.videos"
+        :key="i" class="modal-image" controls
+        :poster="images.preview[i]"
+        >
+        <source :src="image" type="video/mp4">
+      </video>
       </div>
     </div>
   </div>
@@ -28,9 +28,14 @@ export default {
       required: true,
     },
     images: {
-      type: Array,
-      default: () => [],
+      type: Object,
+      default: null,
     },
+  },
+  data() {
+    return {
+      openVideoIndex: null
+    }
   },
   watch: {
     isOpen(newValue) {
@@ -70,11 +75,14 @@ export default {
   padding: 30px;
   border-radius: 40px;
   width: 60%;
-  height: 60vh;
+  // height: 60vh;
   overflow-y: auto;
   position: relative;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
+  @media (max-width: 800px) {
+    width: 90%;
+  }
 }
 
 .close-button {
@@ -103,9 +111,14 @@ h2 {
   gap: 20px;
   margin-top: 20px;
   width: 100%;
-  height: 200px;
+  height: -webkit-fill-available;
   background-color: #2d2d2d;
   border-radius: 12px;
+  object-fit: cover;
+  
+  @media (max-width: 800px) {
+    object-fit: contain;
+  }
 }
 
 .image-display {

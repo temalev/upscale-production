@@ -15,14 +15,14 @@
         впечатление!
         </p>
       </div>
-      <video
-        src="@/public/videos/video.mp4"
+      <!-- <video
+        src="/public/videos/video.mp4"
         class="video-player"
         controls
         type="video/mp4"
         style="max-width: 700px; min-width: 300px; width: 100%;"
         loop
-      ></video>
+      ></video> -->
     </div>
 
     <div class="video-cards-block">
@@ -47,13 +47,13 @@
     <VideoModal
       :is-open="selectedCard !== null"
       :title="selectedCard?.title || ''"
-      :images="selectedCard?.preview || []"
+      :images="selectedCard"
       @close="closeModal"
     />
 
-    <img src="@/assets/img/1.webp" alt="" width="500" class="img-1" />
-    <img src="@/assets/img/2.webp" alt="" width="300" class="img-2" />
-    <img src="@/assets/img/3.webp" alt="" width="300" class="img-3" /> 
+    <img src="@/assets/img/1.webp" alt="" class="img-1" />
+    <img src="@/assets/img/2.webp" alt="" class="img-2" />
+    <img src="@/assets/img/3.webp" alt="" class="img-3" /> 
   </div>
 </template>
 
@@ -299,6 +299,10 @@ export default {
   bottom: 0;
   right: 0;
   z-index: 1;
+  width: 500px;
+  @media (max-width: 800px) {
+    width: 200px;
+  }
 }
 .img-2 {
   position: absolute;
@@ -306,6 +310,10 @@ export default {
   left: 200px;
   z-index: 1;
   transform: rotate(30deg);
+  width: 400px;
+  @media (max-width: 800px) {
+    width: 200px;
+  }
 }
 .img-3 {
   position: absolute;
@@ -313,6 +321,12 @@ export default {
   right: 360px;
   z-index: 1;
   transform: rotate(-30deg);
+  width: 300px;
+  @media (max-width: 800px) {
+    width: 200px;
+    right: 260px;
+    top: 40px;
+  }
 }
 .video-player {
   border-radius: 20px;
