@@ -15,14 +15,15 @@
         впечатление!
         </p>
       </div>
-      <!-- <video
-        src="/public/videos/video.mp4"
+      <video
+        src="https://c72c20f3-a52c-42f4-9894-9b4d230ff379.selstorage.ru/Promo%20upscale.mp4"
         class="video-player"
         controls
         type="video/mp4"
         style="max-width: 700px; min-width: 300px; width: 100%;"
+        poster="@/public/preview/main.png"
         loop
-      ></video> -->
+      ></video>
     </div>
 
     <div class="video-cards-block">
