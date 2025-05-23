@@ -21,7 +21,7 @@
         controls
         type="video/mp4"
         style="max-width: 700px; min-width: 300px; width: 100%;"
-        poster="@/public/preview/main.png"
+        poster="@/public/preview/main.webp"
         loop
       ></video>
     </div>
@@ -72,28 +72,28 @@ export default {
           id: 1,
           title: "Имиджевые",
           value: "lifestyle",
-          preview: Array.from({ length: 6 }, (_, i) => `/preview/lifestyle/${i + 1}.jpg`),
+          preview: Array.from({ length: 6 }, (_, i) => `/preview/lifestyle/${i + 1}.webp`),
           videos: Array.from({ length: 6 }, (_, i) => `/videos/lifestyle/${i + 1}.mp4`),
         },
         {
           id: 2,
           title: "Рекламный",
           value: "marketing",
-          preview: Array.from({ length: 6 }, (_, i) => `/preview/marketing/${i + 1}.jpg`),
+          preview: Array.from({ length: 6 }, (_, i) => `/preview/marketing/${i + 1}.webp`),
           videos: Array.from({ length: 6 }, (_, i) => `/videos/marketing/${i + 1}.mp4`),
         },
         {
           id: 3,
           title: "Ивент",
           value: "event",
-          preview: Array.from({ length: 6 }, (_, i) => `/preview/event/${i + 1}.jpg`),
+          preview: Array.from({ length: 6 }, (_, i) => `/preview/event/${i + 1}.webp`),
           videos: Array.from({ length: 6 }, (_, i) => `/videos/event/${i + 1}.mp4`),
         },
         {
           id: 4,
           title: "Анимация",
           value: "animation",
-          preview: Array.from({ length: 6 }, (_, i) => `/preview/animation/${i + 1}.jpg`),
+          preview: Array.from({ length: 6 }, (_, i) => `/preview/animation/${i + 1}.webp`),
           videos: Array.from({ length: 6 }, (_, i) => `/videos/animation/${i + 1}.mp4`),
         },
       ],
