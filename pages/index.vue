@@ -216,12 +216,12 @@ export default {
   background: linear-gradient(
     90deg,
     rgb(255, 174, 0),
-    rgb(76, 0, 255) 40%
+    rgb(76, 0, 255) 100%
   ); /* Увеличен синий цвет в градиенте */
   -webkit-background-clip: text; /* Обрезка фона по тексту */
   -webkit-text-fill-color: transparent; /* Прозрачный цвет текста */
   font-size: 60px;
-  margin-left: 40px;
+  text-align: center;
   @media (max-width: 500px) {
     font-size: 26px;
   }
