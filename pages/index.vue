@@ -196,7 +196,8 @@ export default {
 
   @media (max-width: 500px) {
     top: 35%;
-    padding: 40px;
+    padding: 28px;
+    border-radius: 20px;
   }
 }
 .text-block {
@@ -250,6 +251,10 @@ export default {
     flex-wrap: nowrap;
     justify-content: center;
   }
+
+  @media (max-width: 500px) {
+    gap: 12px;
+  }
 }
 
 .video-card {
@@ -264,6 +269,13 @@ export default {
   &:hover {
     background: rgba(255, 255, 255, 0.451); /* Полупрозрачный фон */
     cursor: pointer;
+  }
+  @media (max-width: 500px) {
+    border-radius: 20px; 
+    padding: 18px;
+  }
+  @media (max-width: 400px) {
+    padding: 12px;
   }
 }
 
@@ -281,6 +293,9 @@ export default {
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(2, 1fr);
   gap: 10px;
+  @media (max-width: 400px) {
+    gap: 4px;
+  }
 }
 
 .video {
@@ -314,6 +329,7 @@ export default {
   width: 400px;
   @media (max-width: 800px) {
     width: 200px;
+    left: 200px;
   }
 }
 .img-3 {
