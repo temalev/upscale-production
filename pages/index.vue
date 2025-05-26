@@ -341,9 +341,12 @@ export default {
   .text-block {
     position: absolute;
     top: 0;
-    right: -200px;
+    right: -300px;
     text-align: left;
-    width: 180px;
+    width: 280px;
+    & p {
+      font-size: 16px;
+    }
   }
 }
 </style>
