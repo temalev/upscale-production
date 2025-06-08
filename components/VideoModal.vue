@@ -98,13 +98,14 @@ export default {
 
 h2 {
   color: white;
+  margin-bottom: 20px;
 }
 
 .modal-videos {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   // grid-template-rows: repeat(2, 1fr);
-  gap: 10px;
+  gap: 12px;
   @media (max-width: 400px) {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -112,12 +113,11 @@ h2 {
 
 .modal-image {
   gap: 20px;
-  margin-top: 20px;
   width: 100%;
   background-color: #2d2d2d;
   border-radius: 12px;
   object-fit: cover;
-  height: auto;
+  height: 100%;
   
   @media (max-width: 800px) {
     object-fit: contain;
