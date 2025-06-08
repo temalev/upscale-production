@@ -114,10 +114,10 @@ h2 {
   gap: 20px;
   margin-top: 20px;
   width: 100%;
-  height: -webkit-fill-available;
   background-color: #2d2d2d;
   border-radius: 12px;
   object-fit: cover;
+  height: auto;
   
   @media (max-width: 800px) {
     object-fit: contain;
