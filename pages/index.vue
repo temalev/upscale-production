@@ -173,6 +173,10 @@ export default {
   position: relative;
   height: 100%;
   padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
 }
 .glass-effect {
   background: rgba(255, 255, 255, 0.022); /* Полупрозрачный фон */
@@ -188,10 +192,7 @@ export default {
   flex-direction: column;
   gap: 30px;
   z-index: 2;
-  position: absolute;
-  top: 45%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  width: fit-content;
   border: 2px solid rgba(255, 255, 255, 0.048);
 
   @media (max-width: 500px) {
@@ -229,21 +230,17 @@ export default {
 }
 
 .video-cards-block {
-  position: absolute;
-  bottom: 100px;
-  left: 80px;
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
   z-index: 3;
-  width: calc(100% - 160px);
+  // width: calc(100% - 160px);
   
   @media (max-width: 1120px) {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(2, 1fr);
     justify-items: center;
-    left: auto;
     bottom: 50px;
   }
 
