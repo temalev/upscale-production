@@ -77,7 +77,7 @@ export default {
         },
         {
           id: 2,
-          title: "Рекламный",
+          title: "Презентационные",
           value: "marketing",
           preview: Array.from({ length: 6 }, (_, i) => `https://c72c20f3-a52c-42f4-9894-9b4d230ff379.selstorage.ru/preview%2Fmarketing%2F${i + 1}.webp`),
           videos: Array.from({ length: 6 }, (_, i) => `https://c72c20f3-a52c-42f4-9894-9b4d230ff379.selstorage.ru/marketing%2F${i + 1}.mp4`),
