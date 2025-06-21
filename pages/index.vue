@@ -15,15 +15,20 @@
         впечатление!
         </p>
       </div>
-      <video
-        src="https://c72c20f3-a52c-42f4-9894-9b4d230ff379.selstorage.ru/Promo%20upscale.mp4"
-        class="video-player"
-        controls
-        type="video/mp4"
-        style="max-width: 700px; min-width: 300px; width: 100%;"
-        poster="@/public/preview/main.webp"
-        loop
-      ></video>
+      <div class="plyr-container">
+        <video
+          ref="videoPlayer"
+          class="video-player"
+          style="max-width: 700px; min-width: 300px; width: 100%;"
+          poster="@/public/preview/main.webp"
+          loop
+        >
+          <source
+            src="https://c72c20f3-a52c-42f4-9894-9b4d230ff379.selstorage.ru/Promo%20upscale.mp4"
+            type="video/mp4"
+          />
+        </video>
+      </div>
     </div>
 
     <div class="video-cards-block">
@@ -60,6 +65,7 @@
 
 <script>
 import VideoModal from "~/components/VideoModal.vue";
+import Plyr from 'plyr';
 
 export default {
   components: {
@@ -98,12 +104,54 @@ export default {
         },
       ],
       selectedCard: null,
+      player: null,
     };
   },
   mounted() {
-
+    this.initPlyr();
+  },
+  beforeDestroy() {
+    if (this.player) {
+      this.player.destroy();
+    }
   },
   methods: {
+    initPlyr() {
+      this.$nextTick(() => {
+        if (this.$refs.videoPlayer) {
+          this.player = new Plyr(this.$refs.videoPlayer, {
+            controls: [
+              'play-large',
+              'play',
+              'progress',
+              'current-time',
+              'mute',
+              'volume',
+              'captions',
+              'settings',
+              'pip',
+              'airplay',
+              'fullscreen'
+            ],
+            settings: ['captions', 'quality', 'speed'],
+            speed: { selected: 1, options: [0.5, 0.75, 1, 1.25, 1.5, 2] },
+            loop: { active: true },
+            autoplay: false,
+            muted: false,
+            hideControls: true,
+            resetOnEnd: false,
+            keyboard: { focused: true, global: false },
+            tooltips: { controls: true, seek: true },
+            captions: { active: false, language: 'auto', update: false },
+            fullscreen: { enabled: true, fallback: true, iosNative: false },
+            quality: { default: 720, options: [4320, 2880, 2160, 1440, 1080, 720, 576, 480, 360, 240] },
+            previewThumbnails: false,
+            vimeo: { dnt: true },
+            youtube: { noCookie: true, rel: 0, showinfo: 0, iv_load_policy: 3 }
+          });
+        }
+      });
+    },
     startAnimation() {
       setInterval(() => {
         this.updatePositions();
@@ -344,6 +392,61 @@ export default {
 }
 .video-player {
   border-radius: 20px;
+}
+
+.plyr-container {
+  width: 100%;
+  max-width: 700px;
+  min-width: 300px;
+}
+
+/* Стили для Plyr плеера */
+:deep(.plyr) {
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+:deep(.plyr--video) {
+  background: transparent;
+}
+
+:deep(.plyr__control--overlaid) {
+  background: rgba(255, 174, 0, 0.8);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+:deep(.plyr__control--overlaid:hover) {
+  background: rgba(255, 174, 0, 1);
+}
+
+:deep(.plyr__control) {
+  color: #fff;
+}
+
+:deep(.plyr__control:hover) {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+:deep(.plyr__progress__played) {
+  background: linear-gradient(90deg, rgb(255, 174, 0), rgb(76, 0, 255));
+}
+
+:deep(.plyr__volume__display) {
+  background: linear-gradient(90deg, rgb(255, 174, 0), rgb(76, 0, 255));
+}
+
+:deep(.plyr__menu__container) {
+  background: rgba(0, 0, 0, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+}
+
+:deep(.plyr__menu__container .plyr__control) {
+  color: #fff;
+}
+
+:deep(.plyr__menu__container .plyr__control:hover) {
+  background: rgba(255, 255, 255, 0.1);
 }
 
 @media (min-width: 1350px) {

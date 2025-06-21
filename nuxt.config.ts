@@ -6,10 +6,10 @@ export default defineNuxtConfig({
     head: {
       link: [
         { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
-        { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: true },
+        { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: 'anonymous' },
         { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap' }
       ]
     }
   },
-  css: ['@/assets/styles/main.css', '@/assets/styles/common.scss']
+  css: ['@/assets/styles/main.css', '@/assets/styles/common.scss', 'plyr/dist/plyr.css']
 })
