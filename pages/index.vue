@@ -20,7 +20,6 @@
           ref="videoPlayer"
           class="video-player"
           style="max-width: 700px; min-width: 300px; width: 100%;"
-          poster="@/public/preview/main.webp"
           loop
         >
           <source
@@ -57,15 +56,16 @@
       @close="closeModal"
     />
 
-    <img src="@/assets/img/1.webp" alt="" class="img-1" />
-    <img src="@/assets/img/2.webp" alt="" class="img-2" />
-    <img src="@/assets/img/3.webp" alt="" class="img-3" /> 
+    <img ref="img1" src="@/assets/img/1.webp" alt="" class="img-1" />
+    <img ref="img2" src="@/assets/img/2.webp" alt="" class="img-2" />
+    <img ref="img3" src="@/assets/img/3.webp" alt="" class="img-3" /> 
   </div>
 </template>
 
 <script>
 import VideoModal from "~/components/VideoModal.vue";
 import Plyr from 'plyr';
+import { gsap } from 'gsap';
 
 export default {
   components: {
@@ -109,11 +109,18 @@ export default {
   },
   mounted() {
     this.initPlyr();
+    this.initPageAnimations();
+    this.initImageAnimations();
+    this.initMouseTracking();
   },
   beforeDestroy() {
     if (this.player) {
       this.player.destroy();
     }
+    // Очищаем анимации GSAP
+    gsap.killTweensOf([this.$refs.img1, this.$refs.img2, this.$refs.img3]);
+    // Удаляем обработчик движения мыши
+    window.removeEventListener('mousemove', this.onMouseMove);
   },
   methods: {
     initPlyr() {
@@ -152,60 +159,156 @@ export default {
         }
       });
     },
-    startAnimation() {
-      setInterval(() => {
-        this.updatePositions();
-      }, 100);
+    
+    initImageAnimations() {
+      this.$nextTick(() => {
+        // Анимация для первого изображения - плавающий эффект
+        gsap.to(this.$refs.img1, {
+          y: -8,
+          rotation: 2,
+          duration: 4,
+          ease: "power2.inOut",
+          repeat: -1,
+          yoyo: true,
+          delay: 2.5
+        });
+
+        // Анимация для второго изображения - более медленное плавание
+        gsap.to(this.$refs.img2, {
+          y: -12,
+          rotation: -2,
+          duration: 6,
+          ease: "power2.inOut",
+          repeat: -1,
+          yoyo: true,
+          delay: 3.5
+        });
+
+        // Анимация для третьего изображения - вращение и плавание
+        gsap.to(this.$refs.img3, {
+          y: -10,
+          rotation: 3,
+          duration: 5,
+          ease: "power2.inOut",
+          repeat: -1,
+          yoyo: true,
+          delay: 4.5
+        });
+
+        // Добавляем эффект пульсации для всех изображений
+        gsap.to([this.$refs.img1, this.$refs.img2, this.$refs.img3], {
+          scale: 1.01,
+          duration: 3,
+          ease: "power2.inOut",
+          repeat: -1,
+          yoyo: true,
+          stagger: 0.5,
+          delay: 3
+        });
+      });
     },
-    updatePositions() {
-      this.img1Position.x += this.img1Direction.x;
-      this.img1Position.y += this.img1Direction.y;
 
-      if (Math.abs(this.img1Position.x - this.img1Initial.x) > 50) {
-        this.img1Direction.x *= -1;
-        this.img1Position.x =
-          this.img1Initial.x +
-          50 * Math.sign(this.img1Position.x - this.img1Initial.x);
-      }
-      if (Math.abs(this.img1Position.y - this.img1Initial.y) > 50) {
-        this.img1Direction.y *= -1;
-        this.img1Position.y =
-          this.img1Initial.y +
-          50 * Math.sign(this.img1Position.y - this.img1Initial.y);
+    initPageAnimations() {
+      this.$nextTick(() => {
+        // Создаем timeline для последовательной анимации
+        const tl = gsap.timeline();
+
+        // Анимация заголовка
+        tl.to('.gradient-text', {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          ease: "power2.out"
+        }, 0.2);
+
+        // Анимация основного блока
+        tl.to('.glass-effect', {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 1.2,
+          ease: "power2.out"
+        }, 0.4);
+
+        // Анимация блока с карточками
+        tl.to('.video-cards-block', {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          ease: "power2.out"
+        }, 0.6);
+
+        // Анимация карточек по очереди
+        tl.to('.video-card', {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.8,
+          ease: "power2.out",
+          stagger: 0.1
+        }, 0.8);
+
+        // Анимация изображений
+        tl.to([this.$refs.img1, this.$refs.img2, this.$refs.img3], {
+          opacity: 1,
+          scale: 1,
+          duration: 1,
+          ease: "power2.out",
+          stagger: 0.2
+        }, 1.2);
+      });
+    },
+
+    initMouseTracking() {
+      this.$nextTick(() => {
+        window.addEventListener('mousemove', this.onMouseMove);
+      });
+    },
+
+    onMouseMove(event) {
+      const mouseX = event.clientX;
+      const mouseY = event.clientY;
+      const windowWidth = window.innerWidth;
+      const windowHeight = window.innerHeight;
+
+      // Нормализуем позицию мыши от -1 до 1
+      const normalizedX = (mouseX / windowWidth) * 2 - 1;
+      const normalizedY = (mouseY / windowHeight) * 2 - 1;
+
+      // Анимация для первого изображения (правый нижний угол) - очень ограниченное движение
+      if (this.$refs.img1) {
+        gsap.to(this.$refs.img1, {
+          x: normalizedX * 3,
+          y: normalizedY * 3,
+          rotation: normalizedX * 1,
+          duration: 0.8,
+          ease: "power2.out"
+        });
       }
 
-      this.img2Position.x += this.img2Direction.x;
-      this.img2Position.y += this.img2Direction.y;
-
-      if (Math.abs(this.img2Position.x - this.img2Initial.x) > 50) {
-        this.img2Direction.x *= -1;
-        this.img2Position.x =
-          this.img2Initial.x +
-          50 * Math.sign(this.img2Position.x - this.img2Initial.x);
-      }
-      if (Math.abs(this.img2Position.y - this.img2Initial.y) > 50) {
-        this.img2Direction.y *= -1;
-        this.img2Position.y =
-          this.img2Initial.y +
-          50 * Math.sign(this.img2Position.y - this.img2Initial.y);
+      // Анимация для второго изображения (левый верхний угол) - очень ограниченное движение
+      if (this.$refs.img2) {
+        gsap.to(this.$refs.img2, {
+          x: -normalizedX * 4,
+          y: -normalizedY * 4,
+          rotation: -normalizedX * 1,
+          duration: 0.8,
+          ease: "power2.out"
+        });
       }
 
-      this.img3Position.x += this.img3Direction.x;
-      this.img3Position.y += this.img3Direction.y;
-
-      if (Math.abs(this.img3Position.x - this.img3Initial.x) > 50) {
-        this.img3Direction.x *= -1;
-        this.img3Position.x =
-          this.img3Initial.x +
-          50 * Math.sign(this.img3Position.x - this.img3Initial.x);
-      }
-      if (Math.abs(this.img3Position.y - this.img3Initial.y) > 50) {
-        this.img3Direction.y *= -1;
-        this.img3Position.y =
-          this.img3Initial.y +
-          50 * Math.sign(this.img3Position.y - this.img3Initial.y);
+      // Анимация для третьего изображения (правый верхний угол) - очень ограниченное движение
+      if (this.$refs.img3) {
+        gsap.to(this.$refs.img3, {
+          x: normalizedX * 2,
+          y: -normalizedY * 2,
+          rotation: normalizedY * 0.5,
+          duration: 0.8,
+          ease: "power2.out"
+        });
       }
     },
+
     openModal(card) {
       this.selectedCard = card;
     },
@@ -217,6 +320,40 @@ export default {
 </script>
 
 <style scoped lang="scss">
+/* Глобальные стили для исключения скролла */
+:global(html), :global(body) {
+  overflow: hidden;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Начальные стили для скрытия элементов */
+.gradient-text {
+  opacity: 0;
+  transform: translateY(-50px);
+}
+
+.glass-effect {
+  opacity: 0;
+  transform: translateY(50px) scale(0.9);
+}
+
+.video-cards-block {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.video-card {
+  opacity: 0;
+  transform: translateY(20px) scale(0.8);
+}
+
+.img-1, .img-2, .img-3 {
+  opacity: 0;
+  transform: scale(0.8);
+}
+
 .main {
   position: relative;
   height: 100%;
@@ -225,7 +362,9 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
+  overflow: hidden;
 }
+
 .glass-effect {
   background: rgba(255, 255, 255, 0.022); /* Полупрозрачный фон */
   backdrop-filter: blur(14px); /* Эффект размытия фона */
@@ -357,10 +496,10 @@ export default {
 
 .img-1 {
   position: absolute;
-  bottom: 0;
-  right: 0;
+  bottom: 100px;
+  right: 50px;
   z-index: 1;
-  width: 500px;
+  width: 400px;
   @media (max-width: 800px) {
     width: 200px;
   }
