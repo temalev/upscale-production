@@ -108,6 +108,7 @@ export default {
     };
   },
   mounted() {
+    this.sortArrays();
     this.initPlyr();
     this.initPageAnimations();
     this.initImageAnimations();
@@ -314,6 +315,26 @@ export default {
     },
     closeModal() {
       this.selectedCard = null;
+    },
+    sortArrays() {
+      this.videoCards.forEach(card => {
+        // Создаем пары preview-video для сортировки
+        const pairs = card.preview.map((preview, index) => ({
+          preview,
+          video: card.videos[index]
+        }));
+        
+        // Сортируем по номеру файла в preview
+        pairs.sort((a, b) => {
+          const numA = parseInt(a.preview.match(/(\d+)\.webp$/)?.[1] || '0');
+          const numB = parseInt(b.preview.match(/(\d+)\.webp$/)?.[1] || '0');
+          return numA - numB;
+        });
+        
+        // Обновляем массивы
+        card.preview = pairs.map(pair => pair.preview);
+        card.videos = pairs.map(pair => pair.video);
+      });
     },
   },
 };
