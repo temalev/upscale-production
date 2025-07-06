@@ -41,7 +41,7 @@
         <div class="video-container">
           <div 
             v-for="(video, i) in videoCard.preview" 
-            :key="i" 
+            :key="video" 
             class="video"
             :style="{ backgroundImage: `url(${video})`, backgroundSize: 'cover' }"
           ></div>
@@ -78,28 +78,28 @@ export default {
           id: 1,
           title: "Имиджевые",
           value: "lifestyle",
-          preview: Array.from({ length: 6 }, (_, i) => `https://c72c20f3-a52c-42f4-9894-9b4d230ff379.selstorage.ru/preview%2Flifestyle%2F${i + 1}.webp`),
+          preview: Array.from({ length: 6 }, (_, i) => `https://c72c20f3-a52c-42f4-9894-9b4d230ff379.selstorage.ru/preview%2Flifestyle%2Flifestyle_${i + 1}.webp`),
           videos: Array.from({ length: 6 }, (_, i) => `https://c72c20f3-a52c-42f4-9894-9b4d230ff379.selstorage.ru/lifestyle%2F${i + 1}.mp4`),
         },
         {
           id: 2,
           title: "Презентационные",
           value: "marketing",
-          preview: Array.from({ length: 6 }, (_, i) => `https://c72c20f3-a52c-42f4-9894-9b4d230ff379.selstorage.ru/preview%2Fmarketing%2F${i + 1}.webp`),
+          preview: Array.from({ length: 6 }, (_, i) => `https://c72c20f3-a52c-42f4-9894-9b4d230ff379.selstorage.ru/preview%2Fmarketing%2Fmarketing_${i + 1}.webp`),
           videos: Array.from({ length: 6 }, (_, i) => `https://c72c20f3-a52c-42f4-9894-9b4d230ff379.selstorage.ru/marketing%2F${i + 1}.mp4`),
         },
         {
           id: 3,
           title: "Ивент",
           value: "event",
-          preview: Array.from({ length: 6 }, (_, i) => `https://c72c20f3-a52c-42f4-9894-9b4d230ff379.selstorage.ru/preview%2Fevent%2F${i + 1}.webp`),
+          preview: Array.from({ length: 6 }, (_, i) => `https://c72c20f3-a52c-42f4-9894-9b4d230ff379.selstorage.ru/preview%2Fevent%2Fevent_${i + 1}.webp`),
           videos: Array.from({ length: 6 }, (_, i) => `https://c72c20f3-a52c-42f4-9894-9b4d230ff379.selstorage.ru/event%2F${i + 1}.mp4`),
         },
         {
           id: 4,
           title: "Анимация",
           value: "animation",
-          preview: Array.from({ length: 6 }, (_, i) => `https://c72c20f3-a52c-42f4-9894-9b4d230ff379.selstorage.ru/preview%2Fanimation%2F${i + 1}.webp`),
+          preview: Array.from({ length: 6 }, (_, i) => `https://c72c20f3-a52c-42f4-9894-9b4d230ff379.selstorage.ru/preview%2Fanimation%2Fanimation_${i + 1}.webp`),
           videos: Array.from({ length: 6 }, (_, i) => `https://c72c20f3-a52c-42f4-9894-9b4d230ff379.selstorage.ru/animation%2F${i + 1}.mp4`),
         },
       ],
