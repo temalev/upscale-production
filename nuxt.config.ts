@@ -4,6 +4,12 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   app: {
     head: {
+      title: 'UPSCALE PRODUCTION',
+      meta: [
+        { name: 'description', content: 'Наша команда профессионалов готова адаптироваться под ваши нужды, обеспечивая максимальную гибкость и качество.' },
+        { property: 'og:title', content: 'UPSCALE PRODUCTION' },
+        { property: 'og:description', content: 'Наша команда профессионалов готова адаптироваться под ваши нужды, обеспечивая максимальную гибкость и качество.' },
+      ],
       link: [
         { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
         { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: 'anonymous' },
