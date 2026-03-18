@@ -1,7 +1,12 @@
 <template>
   <div class="main">
     <h1 class="gradient-text">UPSCALE PRODUCTION</h1>
-     <div class="glass-effect">
+     <div
+      class="glass-effect glass-spotlight"
+      @mousemove="onGlassMove"
+      @mouseenter="onGlassEnter"
+      @mouseleave="onGlassLeave"
+    >
       <div class="text-block">
         <p> Благодаря использованию передовых технологий и креативных решений, мы
         создаём уникальные видео, которые не просто впечатляют, но и заставляют
@@ -16,7 +21,7 @@
         </p>
       </div>
       <div class="plyr-container">
-        <video
+        <!-- <video
           ref="videoPlayer"
           class="video-player"
           style="max-width: 700px; min-width: 300px; width: 100%;"
@@ -26,7 +31,10 @@
             src="https://c72c20f3-a52c-42f4-9894-9b4d230ff379.selstorage.ru/Promo%20upscale.mp4"
             type="video/mp4"
           />
-        </video>
+        </video> -->
+        <VideoPlayer
+          src="https://c72c20f3-a52c-42f4-9894-9b4d230ff379.selstorage.ru/main/master.m3u8"
+        />
       </div>
     </div>
 
@@ -34,13 +42,16 @@
       <div
         v-for="videoCard in videoCards"
         :key="videoCard.id"
-        class="video-card"
+        class="video-card glass-spotlight"
+        @mousemove="onGlassMove"
+        @mouseenter="onGlassEnter"
+        @mouseleave="onGlassLeave"
         @click="openModal(videoCard)"
       >
         <h3 class="video-card-title">{{ videoCard.title }}</h3>
         <div class="video-container">
           <div 
-            v-for="(video, i) in videoCard.preview" 
+            v-for="video in videoCard.preview" 
             :key="video" 
             class="video"
             :style="{ backgroundImage: `url(${video})`, backgroundSize: 'cover' }"
@@ -105,6 +116,7 @@ export default {
       ],
       selectedCard: null,
       player: null,
+      _glassRaf: null,
     };
   },
   mounted() {
@@ -122,8 +134,35 @@ export default {
     gsap.killTweensOf([this.$refs.img1, this.$refs.img2, this.$refs.img3]);
     // Удаляем обработчик движения мыши
     window.removeEventListener('mousemove', this.onMouseMove);
+    if (this._glassRaf) cancelAnimationFrame(this._glassRaf);
   },
   methods: {
+    onGlassEnter(event) {
+      const el = event.currentTarget;
+      if (!el) return;
+      el.style.setProperty('--spot-opacity', '1');
+      this.onGlassMove(event);
+    },
+    onGlassLeave(event) {
+      const el = event.currentTarget;
+      if (!el) return;
+      el.style.setProperty('--spot-opacity', '0');
+    },
+    onGlassMove(event) {
+      const el = event.currentTarget;
+      if (!el) return;
+
+      const rect = el.getBoundingClientRect();
+      const x = event.clientX - rect.left;
+      const y = event.clientY - rect.top;
+
+      // троттлим до 1 rAF на кадр, чтобы не спамить стилями
+      if (this._glassRaf) cancelAnimationFrame(this._glassRaf);
+      this._glassRaf = requestAnimationFrame(() => {
+        el.style.setProperty('--spot-x', `${x}px`);
+        el.style.setProperty('--spot-y', `${y}px`);
+      });
+    },
     initPlyr() {
       this.$nextTick(() => {
         if (this.$refs.videoPlayer) {
@@ -400,7 +439,7 @@ export default {
   flex-direction: column;
   gap: 30px;
   z-index: 2;
-  width: fit-content;
+  width: min(1200px, 100%);
   border: 2px solid rgba(255, 255, 255, 0.048);
 
   @media (max-width: 500px) {
@@ -408,6 +447,31 @@ export default {
     padding: 28px;
     border-radius: 20px;
   }
+}
+
+.glass-spotlight {
+  position: relative;
+  overflow: hidden;
+  --spot-x: 50%;
+  --spot-y: 50%;
+  --spot-opacity: 0;
+}
+
+.glass-spotlight::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: var(--spot-opacity);
+  transition: opacity 180ms ease;
+  background:
+    radial-gradient(
+      380px circle at var(--spot-x) var(--spot-y),
+      rgba(255, 255, 255, 0.20),
+      rgba(255, 255, 255, 0.08) 35%,
+      rgba(255, 255, 255, 0) 65%
+    );
+  mix-blend-mode: screen;
 }
 .text-block {
   font-size: 14px;
@@ -556,8 +620,8 @@ export default {
 
 .plyr-container {
   width: 100%;
-  max-width: 700px;
-  min-width: 300px;
+  max-width: 100%;
+  min-width: 0;
 }
 
 /* Стили для Plyr плеера */
